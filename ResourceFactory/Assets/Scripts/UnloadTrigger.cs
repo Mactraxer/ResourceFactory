@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
 public class UnloadTrigger : MonoBehaviour
 {
 
-    [SerializeField] private List<GameObject> _itemsInStack;
+    [SerializeField] private InventoryStack _inventoryComponent;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,18 +29,14 @@ public class UnloadTrigger : MonoBehaviour
 
         while (true)
         {
-            if (_itemsInStack.Count < 1)
-            {
-                StopAllCoroutines();
-                break;
-            }
-
-            var itemForLoad = _itemsInStack[0];
-            //receiver.StartLoad(itemForLoad);
-            _itemsInStack.Remove(itemForLoad);
-
+            InventoryController.instanse.TransferItem(_inventoryComponent, receiver, StopLoad);
             yield return waitForSeconds;
         }
+    }
+
+    private void StopLoad()
+    {
+        StopAllCoroutines();
     }
 
 }

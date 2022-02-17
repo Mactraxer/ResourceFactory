@@ -14,7 +14,7 @@ public class StackAnimationController : MonoBehaviour
     
     public void Animate(GameObject item, Vector3 distanse)
     {
-        _animator.Setup(item.transform.position, distanse, item, 1);
+        _animator.Setup(distanse, item);
         _animator.Stack();
     }
 

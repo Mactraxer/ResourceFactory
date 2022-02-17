@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LoadTrigger : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _inventory;
-    [SerializeField] private InventoryStack _inventoryComponent;    
 
+    [SerializeField] private InventoryStack _inventoryComponent;    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,11 +29,14 @@ public class LoadTrigger : MonoBehaviour
 
         while (true)
         {
-            
+            InventoryController.instanse.TransferItem(source, _inventoryComponent, StopLoad);
             yield return waitForSeconds;
         }
     }
 
-
+    private void StopLoad()
+    {
+        StopAllCoroutines();
+    }
 
 }
